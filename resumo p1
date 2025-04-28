@@ -1,0 +1,64 @@
+RESUMO TEÓRICO DE SISTEMAS DE CONTROLE
+
+1. TRANSFORMADA DE LAPLACE
+Definição:
+  F(s) = ∫₀^∞ e^(-s·t) · f(t) dt
+Exemplo:
+  Para f(t) = 5 (degrau unitário):
+    F(s) = 5 ∫₀^∞ e^(-s·t) dt = 5 / s
+
+2. TEOREMAS DO VALOR INICIAL E FINAL
+Valor inicial:
+  f(0⁺) = limₛ→∞ [s · F(s)]
+Valor final:
+  f(∞) = limₛ→0 [s · F(s)]
+Exemplo:
+  Para F(s) = 10 / (s + 2):
+    f(0⁺) = limₛ→∞ [s · 10/(s+2)] = 10
+    f(∞) = limₛ→0 [s · 10/(s+2)] = 0
+
+3. FUNÇÃO DE TRANSFERÊNCIA
+Definição:
+  G(s) = Y(s) / U(s)   (condições iniciais nulas)
+Exemplo de aplicação:
+  Circuito RC com R = 1 kΩ e C = 1 μF:
+    G(s) = 1 / (R·C·s + 1) = 1 / (0.001·s + 1)
+    Constante de tempo τ = R·C = 0.001 s
+
+4. SISTEMAS DE PRIMEIRA ORDEM
+Forma geral:
+  G(s) = k / (s + p)
+Resposta a um degrau unitário:
+  y(t) = (k / p) · (1 – e^(–p·t))
+Exemplo e cálculo:
+  Para k = 2 e p = 4 s⁻¹:
+    y(t) = 0.5 · (1 – e^(–4·t))
+    Constante de tempo τ = 1/p = 0.25 s
+    Em t = 0.25 s:
+      y(0.25) = 0.5 · (1 – e^(–1)) ≈ 0.5 × 0.63 = 0.315
+
+5. SISTEMAS DE SEGUNDA ORDEM
+Forma geral:
+  G(s) = α·ωₙ² / (s² + 2·ζ·ωₙ·s + ωₙ²)
+Parâmetros principais:
+  ζ = fator de amortecimento
+  ωₙ = frequência natural (rad/s)
+  ω_d = ωₙ · sqrt(1 – ζ²)  (frequência amortecida)
+Exemplo e cálculos:
+  Para ζ = 0.5 e ωₙ = 10 rad/s:
+    ω_d = 10 · sqrt(0.75) = 8.66 rad/s
+    Pico máximo M_p = exp(–ζ·π / sqrt(1–ζ²)) ≈ 0.455
+    Tempo de pico t_p = π / ω_d ≈ 3.14 / 8.66 = 0.36 s
+    Tempo de acomodação (2%) T_s = 4 / (ζ·ωₙ) = 4 / (0.5·10) = 0.8 s
+
+6. ESTABILIDADE DE SISTEMAS
+Critério de Routh–Hurwitz:
+  Monta-se tabela de Routh; o número de mudanças de sinal na primeira coluna indica polos com parte real > 0
+Exemplo:
+  Polinômio s³ + 2·s² + 3·s + 4
+  Tabela simplificada:
+    Linha s³: 1    3
+    Linha s²: 2    4
+    Linha s¹: (2·3 – 1·4)/2 = 1    0
+    Linha s⁰: 4
+  Primeira coluna: [1, 2, 1, 4] – sem mudança de sinal → sistema estável
